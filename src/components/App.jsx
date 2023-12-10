@@ -15,12 +15,12 @@ export function App() {
 
   const onSubmitForm = event => {
     event.preventDefault();
-    let searchData = event.target.elements[1].value;
+    const searchData = event.target.elements[1].value;
     if (searchData.trim() !== '') {
       setPage(1);
       setSearchData(searchData);
       setImages([]);
-      searchData = '';
+      event.target.elements[1].value = '';
     } else {
       toast.error('Incorrect INPUT ! Please, try again!', {
         position: toast.POSITION.TOP_RIGHT,
@@ -43,7 +43,7 @@ export function App() {
           });
         } else if (data.total !== 0) {
           setImages(prev => [...prev, ...data.hits]);
-        } else if (data.totalHits > 0 && page === 1) {
+        } else if (data.total !== 0 && page === 1) {
           toast.success(`We found ${data.totalHits} images`, {
             position: toast.POSITION.TOP_RIGHT,
           });
