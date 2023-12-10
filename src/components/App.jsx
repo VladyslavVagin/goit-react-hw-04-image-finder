@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import getPicturesApi from './api-request/api-request';
@@ -7,79 +7,72 @@ import Loader from './Loader/Loader';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-export class App extends Component {
-  state = {
-    images: [],
-    isLoading: false,
-    page: 1,
-    searchData: '',
-  };
+export function App() {
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [query, setSearchData] = useState('');
 
-  onSubmitForm = event => {
+  const onSubmitForm = event => {
     event.preventDefault();
-    const searchData = event.target.elements[1].value;
-    if(searchData.trim() !== '') {
-      this.setState({ searchData, page: 1, images: [], isLoading: true });
-      this.addImagesToGallery(searchData, 1, []);
-      event.target.elements[1].value = '';
+    let searchData = event.target.elements[1].value;
+    if (searchData.trim() !== '') {
+      setPage(1);
+      setSearchData(searchData);
+      setImages([]);
+      searchData = '';
     } else {
       toast.error('Incorrect INPUT ! Please, try again!', {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
-    } 
+    }
   };
 
-  onClick = () => this.setState(({ page }) => ({ page: page + 1 }));
-
-  addImagesToGallery = async (searchData, page,  arrayInitial) => {
-     try {
-    const response =  await getPicturesApi(searchData, page);
-    const data = response.data;
-    if (data.total === 0) {
-      toast.error('Images not founded, we so sorry', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-    } else if (data.total !== 0 && page === 1) {
-      toast.success(`We found ${data.totalHits} images`, {
-        position: toast.POSITION.TOP_RIGHT
-      });
-    } else if (Math.ceil(data.totalHits / 12) === page) {
-      toast.info('You reached END of search result', {
-        position: toast.POSITION.TOP_RIGHT
-      });
+  useEffect(() => {
+    if (!query) {
+      return;
     }
-      this.setState({ images: [...arrayInitial, ...data.hits] });
-    } catch {
-      toast.error('Server not answer, Sorry!', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-    } finally {
-      this.setState({isLoading: false});
-    }
-  }
+    const loadPictures = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getPicturesApi(query, page);
+        const data = response.data;
+        if (data.total === 0) {
+          toast.error('Images not founded, we so sorry', {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        } else if (data.total !== 0) {
+          setImages(prev => [...prev, ...data.hits]);
+        } else if (data.totalHits > 0 && page === 1) {
+          toast.success(`We found ${data.totalHits} images`, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        } else if (Math.ceil(data.totalHits / 12) === page) {
+          toast.info('You reached END of search result', {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
+      } catch {
+        toast.error('Server not answer', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  componentDidUpdate(_, prevState) {
-      const {searchData, page} = this.state;
-    if (
-      prevState.page !== page &&
-      prevState.searchData === searchData ) {
-      this.setState({isLoading: true})
-      this.addImagesToGallery(searchData, page, prevState.images);
-    }
-  }
+    loadPictures();
+  }, [page, query]);
 
-  render() {
-    const { images, page, isLoading } = this.state;
     return (
       <div className='wrapper-gallery'>
-        <SearchBar onSubmit={this.onSubmitForm} />
+        <SearchBar onSubmit={onSubmitForm} />
         <ImageGallery images={images}/>
         {isLoading === true &&  <Loader />}
-        {images.length / 12 >= page && <Button onClick={this.onClick}/>}
+        {images.length / 12 >= page && <Button onClick={() => setPage(prev => prev + 1)}/>}
         <ToastContainer autoClose={3000}/>
       </div>
     );
-  }
 }
 
  
