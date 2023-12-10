@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  animation: pulse 1500ms infinite;
+  animation: pulse 3000ms infinite;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
