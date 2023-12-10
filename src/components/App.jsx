@@ -72,7 +72,7 @@ export function App() {
       {images.length === 0 && !errorStatus && <SearchImage />}
       {errorStatus ? <ErrorMessage /> :  <ImageGallery images={images} />}
       {isLoading === true && <Loader />}
-      {images.length / 12 >= page && (
+      {images.length / 12 >= page && isLoading === false && (
         <Button onClick={() => setPage(prev => prev + 1)} />
       )}
       <ToastContainer autoClose={3000} />
