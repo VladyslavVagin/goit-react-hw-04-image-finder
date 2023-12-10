@@ -1,5 +1,6 @@
 import css from './SearchImage.module.css'
 import search from '../icons/search.jpg'
+import { memo } from 'react'
 
 const SearchImage = () => {
   return (
@@ -10,4 +11,4 @@ const SearchImage = () => {
   )
 }
 
-export default SearchImage
+export default memo(SearchImage)

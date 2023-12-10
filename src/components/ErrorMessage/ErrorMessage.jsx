@@ -1,5 +1,6 @@
 import css from './ErrorMessage.module.css'
 import ErrorPicture from '../icons/error.jpg'
+import { memo } from 'react'
 
 const ErrorMessage = () => {
   return (
@@ -10,4 +11,4 @@ const ErrorMessage = () => {
   )
 }
 
-export default ErrorMessage
+export default memo(ErrorMessage)

@@ -1,6 +1,6 @@
-import React from 'react';
+import { memo } from 'react';
 import css from './ImageGallery.module.css'
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import PropTypes from 'prop-types';
 
 const ImageGallery = ({images}) => {
@@ -15,4 +15,4 @@ ImageGallery.propTypes = {
   images: PropTypes.array.isRequired,
 }
 
-export default ImageGallery;
+export default memo(ImageGallery);

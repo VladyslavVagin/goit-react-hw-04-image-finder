@@ -1,9 +1,9 @@
 import css from './ImageGalleryItem.module.css';
 import Modal from 'components/Modal/Modal';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
-export function ImageGalleryItem ({image}) {
+const ImageGalleryItem = ({image}) => {
   const [showModal, setShowModal] = useState(false);
 
  const toggleModal = () => setShowModal(!showModal);
@@ -28,6 +28,8 @@ export function ImageGalleryItem ({image}) {
       </>
     );
 }
+
+export default memo(ImageGalleryItem);
 
 ImageGalleryItem.propTypes = {
   image: PropTypes.object.isRequired,
