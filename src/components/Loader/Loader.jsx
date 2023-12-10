@@ -10,7 +10,7 @@ const Loader = () => {
       ariaLabel="dna-loading"
       wrapperStyle={{}}
       wrapperClass="dna-wrapper"
-      ballColors={['#2d0a66', '#747474', '#6c6cf8']}
+      ballColors={['#0e79d1', '#fffb00', '#26aa2d']}
       backgroundColor="#000000"
     />
   );

@@ -60,7 +60,6 @@ img {
 }  
 .dna-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 0 auto;
+  padding: 20px;
 }

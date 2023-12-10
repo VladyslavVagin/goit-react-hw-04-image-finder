@@ -4,8 +4,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import getPicturesApi from './api-request/api-request';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import SearchImage from './SearchImage/SearchImage';
 
@@ -26,9 +25,7 @@ export function App() {
       setImages([]);
       event.target.elements[1].value = '';
     } else {
-      toast.error('Incorrect INPUT ! Please, try again!', {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+     Notify.failure('Incorrect INPUT ! Please, try again!');
     }
   };
 
@@ -41,23 +38,15 @@ export function App() {
       const data = response.data;
       if (data.total === 0) {
         setError(true);
-        toast.error('Images not founded, we so sorry', {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        Notify.failure('Images not founded, we so sorry');
       } else if (data.total !== 0 && page === 1) {
-        toast.success(`We found ${data.totalHits} images`, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        Notify.success(`We found ${data.totalHits} images`);
       } else if (Math.ceil(data.totalHits / 12) === page) {
-        toast.info('You reached END of search result', {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        Notify.info('You reached END of search result');
       }
       setImages(prev => [...prev, ...data.hits]);
     } catch {
-      toast.error('Server not answer, Sorry!', {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      Notify.failure('Server not answer, Sorry!');
     } finally {
       setIsLoading(false);
     }
@@ -76,9 +65,8 @@ export function App() {
       {images.length > 0 && !errorStatus && <ImageGallery images={images} />}
       {images.length === 0 && !errorStatus && !isLoading && <SearchImage />}
       {errorStatus && images.length === 0 && <ErrorMessage />}
-      {isLoading === true && <Loader />}
+      {isLoading && <Loader />}
       {images.length / 12 >= page && !isLoading && <Button onClick={onClick} />}
-      <ToastContainer autoClose={3000} />
     </>
   );
 }

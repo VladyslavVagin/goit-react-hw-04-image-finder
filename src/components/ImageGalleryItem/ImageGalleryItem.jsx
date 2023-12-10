@@ -23,6 +23,7 @@ const ImageGalleryItem = ({image}) => {
             src={webformatURL}
             alt={tags}
             className={css.image}
+            loading='lazy'
           />
         </li>
       </>
