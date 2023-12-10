@@ -14,6 +14,7 @@ export function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
   const [errorStatus, setError] = useState(false);
+  const [maxPage, setMaxPage] = useState(1);
 
   const onSubmitForm = event => {
     event.preventDefault();
@@ -41,9 +42,8 @@ export function App() {
         Notify.failure('Images not founded, we so sorry');
       } else if (data.total !== 0 && page === 1) {
         Notify.success(`We found ${data.totalHits} images`);
-      } else if (Math.ceil(data.totalHits / 12) === page) {
-        Notify.info('You reached END of search result');
-      }
+      } 
+      setMaxPage(Math.ceil(data.totalHits / 12));
       setImages(prev => [...prev, ...data.hits]);
     } catch {
       Notify.failure('Server not answer, Sorry!');
@@ -66,7 +66,8 @@ export function App() {
       {images.length === 0 && !errorStatus && !isLoading && <SearchImage />}
       {errorStatus && images.length === 0 && <ErrorMessage />}
       {isLoading && <Loader />}
-      {images.length / 12 >= page && !isLoading && <Button onClick={onClick} />}
+      {maxPage > page && !isLoading && <Button onClick={onClick} />}
+      {maxPage <= page && images.length > 0 && <p className='end'>You reached END of search result</p>}
     </>
   );
 }
