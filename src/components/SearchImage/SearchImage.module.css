@@ -8,7 +8,8 @@
     font-size: 24px;
     font-weight: 700;
     text-transform: uppercase;
-    font-family: fantasy;
+    font-family: monospace;
+    line-height: 1.68;
     letter-spacing: 0.32em;
 }
 
