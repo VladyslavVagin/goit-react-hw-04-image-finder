@@ -7,7 +7,7 @@ const Loader = () => {
       height="40"
       width="100%"
       radius="9"
-      color="#ffffff"
+      color="#04034b"
       ariaLabel="three-dots-loading"
       wrapperStyle={{
         justifyContant: 'center',

@@ -2,6 +2,7 @@
 
 body {
   margin: 0;
+  animation: pulse 1500ms infinite;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -39,10 +40,7 @@ img {
   display: block;
   max-width: 100%;
 }
-.wrapper-gallery {
-  animation: pulse 3000ms infinite;
-  padding-bottom: 20px;
-}
+
 @keyframes pulse {
   0% {
     background-color:  #D9AFD9;
