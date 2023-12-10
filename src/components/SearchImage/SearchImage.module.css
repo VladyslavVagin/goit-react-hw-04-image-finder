@@ -1,0 +1,17 @@
+.picture {
+    margin: 0 auto;
+    max-width: 400px;
+    width: 100%;
+}
+.text {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: fantasy;
+    letter-spacing: 0.32em;
+}
+
+.container {
+    padding: 0 20px 20% 20px;
+}
