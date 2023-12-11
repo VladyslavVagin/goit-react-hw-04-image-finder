@@ -1,5 +1,5 @@
 import css from './SearchImage.module.css'
-import search from '../icons/search.jpg'
+import search from 'icons/icons/search.jpg'
 import { memo } from 'react'
 
 const SearchImage = () => {

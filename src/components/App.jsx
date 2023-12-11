@@ -1,7 +1,7 @@
 import SearchBar from './SearchBar/SearchBar';
 import { useState, useEffect } from 'react';
 import ImageGallery from './ImageGallery/ImageGallery';
-import getPicturesApi from './api-request/api-request';
+import getPicturesApi from 'services/api-request/api-request';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';

@@ -1,5 +1,5 @@
 import css from './ErrorMessage.module.css'
-import ErrorPicture from '../icons/error.jpg'
+import ErrorPicture from 'icons/icons/error.jpg'
 import { memo } from 'react'
 
 const ErrorMessage = () => {
